@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    {% load static %}
+    <link type='text/css' rel='stylesheet' href='{% static "bootstrap.min.css" %}' />
+    <link type='text/css' rel='stylesheet' href='{% static "bootstrap-theme.min.css" %}' />
+    <link type='text/css' rel='stylesheet' href='{% static "list.css" %}' />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">아주 간단한 게시판</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <div class="navbar-form navbar-right">
+            <button type="submit" class="btn btn-info">Sign in</button>
+            <button type="submit" class="btn btn-success">Sign up</button>
+          </div>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+    <hr>
+
+
+    <div class="container">
+      <table class='table'>
+        <thead>
+          <tr>
+            <th style='width: 5%'> 번호 </th>
+            <th style='width: 10% '> 작성날짜 </th>
+            <th style='width: 10%'> 작성자 </th>
+            <th style='width: 20%'> 제목 </th>
+            <th> 내용 </th>
+
+            <!-- 글 수정과 글 삭제 컬럼을 추가-->
+            <th style='width: 5%'> </th>
+            <th style='width: 5%'> </th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {% for row in rows %}
+          <tr>
+            <td> {{forloop.counter}} </td>
+            <td> {{row.createDate}} </td>
+            <td> {{row.writer}} </td>
+            <td> {{row.subject}} </td>
+            <td> {{row.content}} </td>
+            <td>
+              <a href='update/?id={{row.id}}'>
+              <button type="submit" class="btn btn-warning">수정</button>
+              </a>
+            </td>
+            <td>
+              <form action="./delete" method="GET">
+              <div class="input-group" name='asd'>
+                  <!-- <li class="list-group-item"> {{ todo.content }}--> </li>
+                  <input type="hidden" name="id" value="{{ row.id }}"></input>
+                  <!-- <span class="input-group-addon"> -->
+                      <button type="submit" class="btn btn-danger">삭제</button>
+                  <!-- </span> -->
+              </div>
+              </form>
+
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+
+          </tr>
+          <tr>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+    <div class="container">
+      <a href='write/'>
+        <button type="submit" class="btn btn-primary">게시글 작성하기</button>
+      </a>
+    </div>
+  </body>
+</html>
