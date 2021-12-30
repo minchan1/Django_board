@@ -1,24 +1,33 @@
 <!DOCTYPE html>
+
 <html>
   <head>
-      <link type='text/css' rel='stylesheet' href='../css/bootstrap.min.css' />
-      <link type='text/css' rel='stylesheet' href='../css/bootstrap-theme.min.css' />
 
+    {% load static %}
+    <link type='text/css' rel='stylesheet' href='{% static "bootstrap.min.css" %}' />
+    <link type='text/css' rel='stylesheet' href='{% static "bootstrap.css" %}' />
+    <link type='text/css' rel='stylesheet' href='{% static "login.css" %}' />
   </head>
 
   <body>
     <div class='container'>
-      <form class='form-horizontal' method='post' action=''>
+      <form class='form-horizontal' method='POST' action=''>
+        {% csrf_token %}
+        <!--
+          로그인이 되어있지 않은 경우 next URL로 값을 넘겨주기 위해서는
+          히든 필드를 통해서 값을 따로 전달 해줘야 함
+        -->
+        <!-- <input type=hidden name='next' value='{{next}}'>-->
         <div class='form-group'>
           <label for="inputId" class="col-xs-4 col-md-4 control-label">ID</label>
           <div class='col-xs-4 col-md-4'>
-            <input class="form-control" type='text' name='id' id='inputId'>
+            <input class="form-control" type='text' name='username' id='inputId'>
           </div>
         </div>
         <div class='form-group'>
           <label for="inputPw" class="col-xs-4 col-sm-4 control-label">PW</label>
           <div class='col-xs-4 col-md-4'>
-            <input class="form-control" type='password' name='pw' id='inputPw'>
+            <input class="form-control" type='password' name='password' id='inputPw'>
           </div>
         </div>
         <div class='form-group'>

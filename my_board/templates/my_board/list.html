@@ -7,8 +7,8 @@
             <th style='width: 5%'> 번호 </th>
             <th style='width: 10% '> 작성날짜 </th>
             <th style='width: 10%'> 작성자 </th>
-            <th style='width: 20%'> 제목 </th>
-            <th> 내용 </th>
+            <th> 제목 </th>
+            <!-- <th> 내용 </th> -->
 
             <!-- 글 수정과 글 삭제 컬럼을 추가-->
             <th style='width: 5%'> </th>
@@ -17,18 +17,19 @@
         </thead>
 
         <tbody>
+          {{user}}
 
           {% for row in rows %}
           <tr>
             <td> {{forloop.counter}} </td>
             <td> {{row.createDate}} </td>
-            <td> {{row.writer}} </td>
+            <td> {{row.user.username}} </td>
             <td>
              <a href='view/?id={{row.id}}'>
                {{row.subject}} 
              </a>
             </td>
-            <td> {{row.content}} </td>
+             <!-- <td> {{row.content}} </td> -->
             <td>
               <a href='update/?id={{row.id}}'>
               <button type="submit" class="btn btn-warning">수정</button>

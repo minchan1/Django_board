@@ -1,7 +1,7 @@
     {% extends 'my_board/base.html' %}    
     {% block content %}   
     <div class='container'>
-      <form action='../create' method='POST'>
+      <form action='/my_board/create' method='POST'>
         {% csrf_token %}
         <div class="form-group">
           <label for="exampleInputPassword1">작성 날짜</label>

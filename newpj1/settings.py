@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
+#from django.contrib.auth.views import LoginView
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -129,3 +131,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ # 로그인 이후에 이동할 url
+LOGIN_REDIRECT_URL = '/my_board/'
+
+ # 로그아웃 이후에 이동할 url
+LOGOUT_REDIRECT_URL = '/my_board/'

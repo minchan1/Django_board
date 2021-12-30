@@ -21,48 +21,61 @@ def index2(request):
     return render(request, 'my_board/write.html')
 def content(request):
     return render(request, 'my_board/content.html')
+
+
+    # 데코레이터를 이용해서 로그인이 필요한 함수를 지정
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='/accounts/login/')
 def create(request):
-    # return HttpResponse('게시글을 생성합니다')
-    # user_input_str = request.POST['createDate']
-    # return HttpResponse(f'사용자가 입력한 값:{user_input_str}')
-    #createDate = request.POST['createDate']
-    #writer = request.POST['user']
-    #subject = request.POST['subject']
-    #content = request.POST['content']
-    new = board(
-        createDate=request.POST['createDate'], 
-        writer=request.POST['user'], 
-        subject=request.POST['subject'], 
-        content=request.POST['content'],
-    )
-    new.save()
 
-    return HttpResponseRedirect(reverse('list'))
+    if request.method == 'POST':
+        new = board(
+            user = request.user,
+            createDate=request.POST['createDate'], 
+            #writer=request.POST['user'], 
+            subject=request.POST['subject'], 
+            content=request.POST['content'],    
+        )   
+        new.save()
 
+        return HttpResponseRedirect(reverse('list'))
+    else :
+        # 로그인이 되어있지 않은 경우 로그인 이후에 새로 글을 작성
+        return render(request, 'my_board/write.html')
+
+@login_required(login_url='/accounts/login/')
 def delete( request ):
+    old = board.objects.get(id= request.GET['id'])
   #print( request.GET[''])
-  old = board.objects.get(id= request.GET['id'])
-  old.delete()
-  return HttpResponseRedirect(reverse('list'))
-  
-
+    if request.user != old.user:
+        return render(request,'my_board/alert.html')
+    else:
+        old.delete()
+    return HttpResponseRedirect(reverse('list'))
+    
+@login_required(login_url='/accounts/login/')
 def update( request ):
     #print('id:', request.GET['id'])
     post = board.objects.get(id=request.GET['id'])
     content = {'post':post}
     return render( request, 'my_board/update.html', content)
 
+@login_required(login_url='/accounts/login/')
 def modify( request ):
     post = board.objects.get(id=request.POST['id'])
-    post.createDate = request.POST['createDate']
-    post.writer=request.POST['user']
-    post.subject=request.POST['subject'] 
-    post.content=request.POST['content']
-    post.save()
+    if request.user != post.user:
+        return render(request,'my_board/alert.html')
+    else:
+        post.createDate = request.POST['createDate']
+        post.writer=request.POST['user']
+        post.subject=request.POST['subject'] 
+        post.content=request.POST['content']
+        post.save()
     return HttpResponseRedirect(reverse('list'))
 
 def view(request):
     post = board.objects.get(id=request.GET['id'])
     content = {'post':post}
     return render(request, 'my_board/view.html', content)
+
 

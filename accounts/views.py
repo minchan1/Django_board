@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from my_board.models import board
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def login(request):
@@ -16,6 +17,6 @@ def signup(request):
 def createUser(request):
     id = request.POST['id']
     pw = request.POST['pw']
-    user = User(username=id, password=pw)
+    user = User(username=id, password=make_password(pw))
     user.save()
     return HttpResponseRedirect(reverse('list'))
