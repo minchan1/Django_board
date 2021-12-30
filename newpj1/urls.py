@@ -20,6 +20,6 @@ from django.urls.conf import include
 urlpatterns = [
     path('my_board/', include('my_board.urls')),
     path('admin/', admin.site.urls),
-    path('profile/', include('accounts.urls')),
+    path('accounts/', include('accounts.urls')),
     
 ]

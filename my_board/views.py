@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from my_board.models import board
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -59,3 +60,9 @@ def modify( request ):
     post.content=request.POST['content']
     post.save()
     return HttpResponseRedirect(reverse('list'))
+
+def view(request):
+    post = board.objects.get(id=request.GET['id'])
+    content = {'post':post}
+    return render(request, 'my_board/view.html', content)
+
