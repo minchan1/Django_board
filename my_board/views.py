@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from my_board.models import board
 from django.urls import reverse
 from django.contrib.auth.models import User
+from my_board.models import board_reply
 
 # Create your views here.
 
@@ -75,7 +76,17 @@ def modify( request ):
 
 def view(request):
     post = board.objects.get(id=request.GET['id'])
-    content = {'post':post}
+    reply1 = board_reply.objects.all()
+    content = {'post':post, 'reply':reply1}   
     return render(request, 'my_board/view.html', content)
 
 
+def reply(request):
+    post = board_reply(
+            user = request.user,
+            createDate=request.POST['createDate'], 
+            content=request.POST['content'],    
+        )   
+    post.save()
+
+    return HttpResponseRedirect(reverse('list'))

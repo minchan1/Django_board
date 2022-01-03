@@ -10,3 +10,8 @@ class board( models.Model ):
     #writer = models.CharField(max_length=128)
     subject = models.CharField(max_length=255)
     content = models.TextField()
+
+class board_reply( models.Model ):
+    user = models.CharField(max_length=128)
+    createDate = models.DateField()
+    content = models.TextField()

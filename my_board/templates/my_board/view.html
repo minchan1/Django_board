@@ -24,7 +24,7 @@
           <textarea class="form-control" rows=10 name='content' readonly>{{post.content}}</textarea>
         <!-- <button type="submit" class="btn btn-default">등록</button> -->
         </div>
-        <!-- 댓글 기능 구현??
+        <!-- 댓글 기능 구현?? -->
         <div>
           <label for="exampleInputFile">댓글</label>
           <tr>
@@ -36,9 +36,12 @@
             <th style='width: 5%'> </th>
             <th style='width: 5%'> </th>
           </tr>
+          {% for row in reply %}
+          {{row.content}}
           <input type="text" class="form-control" name='reply'>
           <button type="submit" class="btn btn-default">등록</button>
-        </div>-->
+          {% endfor %}
+        </div>
       </form>
     </div>
     {% endblock %}
